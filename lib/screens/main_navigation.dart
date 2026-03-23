@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 import 'history_screen.dart';
+import 'notification_screen.dart';
+import 'profile_screen.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -16,8 +18,8 @@ class _MainNavigationState extends State<MainNavigation> {
     const HomeScreen(),
     const HistoryScreen(),
     const PlaceholderScreen(title: 'QR'),
-    const PlaceholderScreen(title: 'Notifikasi'),
-    const PlaceholderScreen(title: 'Akun'),
+    const NotificationScreen(),
+    const ProfileScreen(),
   ];
 
   @override
