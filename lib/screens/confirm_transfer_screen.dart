@@ -69,7 +69,7 @@ class ConfirmTransferScreen extends StatelessWidget {
           const Divider(height: 30),
           _buildDetailRow('Nomor Rekening', accountNumber),
           const Divider(height: 30),
-          _buildDetailRow('Nama Penerima', 'BRImo User Receiver'),
+          _buildDetailRow('Nama Penerima', 'Irfan Mansyur Penerima'),
           const Divider(height: 30),
           _buildDetailRow('Nominal', 'Rp $amount', valueColor: const Color(0xFF00529C), isBold: true),
           const Divider(height: 30),

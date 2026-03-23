@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: TextStyle(color: Colors.white70, fontSize: 13),
                             ),
                             const Text(
-                              'BRImo User',
+                              'Irfan Mansyur',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

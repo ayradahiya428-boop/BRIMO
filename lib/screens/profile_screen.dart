@@ -91,7 +91,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           const Text(
-            'BRImo User',
+            'Irfan Mansyur',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF00529C)),
           ),
           const SizedBox(height: 4),

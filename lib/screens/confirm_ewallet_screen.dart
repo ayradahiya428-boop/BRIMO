@@ -61,7 +61,7 @@ class ConfirmEWalletScreen extends StatelessWidget {
           const Divider(height: 30),
           _buildRow('Nomor HP', phoneNumber),
           const Divider(height: 30),
-          _buildRow('Nama Pelanggan', 'BRImo User'),
+          _buildRow('Nama Pelanggan', 'Irfan Mansyur'),
           const Divider(height: 30),
           _buildRow('Nominal', 'Rp $amount', isBold: true, valueColor: const Color(0xFF00529C)),
           const Divider(height: 30),

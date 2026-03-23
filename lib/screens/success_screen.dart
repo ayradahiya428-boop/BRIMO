@@ -115,7 +115,7 @@ class SuccessScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 _buildReceiptRow('Nomor Rekening', accountNumber),
                 const SizedBox(height: 16),
-                _buildReceiptRow('Nama Penerima', 'BRImo User Receiver'),
+                _buildReceiptRow('Nama Penerima', 'Irfan Mansyur Penerima'),
                 const SizedBox(height: 16),
                 _buildReceiptRow('Catatan', notes.isEmpty ? '-' : notes),
                 const SizedBox(height: 16),
