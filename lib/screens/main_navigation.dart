@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
+import 'history_screen.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -13,7 +14,7 @@ class _MainNavigationState extends State<MainNavigation> {
 
   final List<Widget> _screens = [
     const HomeScreen(),
-    const PlaceholderScreen(title: 'Aktivitas'),
+    const HistoryScreen(),
     const PlaceholderScreen(title: 'QR'),
     const PlaceholderScreen(title: 'Notifikasi'),
     const PlaceholderScreen(title: 'Akun'),

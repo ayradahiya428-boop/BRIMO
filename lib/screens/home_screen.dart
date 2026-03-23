@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'feature_screens.dart';
 import 'transfer_screen.dart';
 import 'ewallet_screen.dart';
+import 'pulsa_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -167,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
       {'icon': Icons.swap_horiz, 'label': 'Transfer', 'screen': const TransferScreen()},
       {'icon': Icons.receipt_long, 'label': 'BRIVA', 'screen': const BRIVAScreen()},
       {'icon': Icons.account_balance_wallet, 'label': 'E-Wallet', 'screen': const EWalletScreen()},
-      {'icon': Icons.phone_android, 'label': 'Pulsa/Data', 'screen': const PulsaDataScreen()},
+      {'icon': Icons.phone_android, 'label': 'Pulsa/Data', 'screen': const PulsaScreen()},
       {'icon': Icons.description, 'label': 'Tagihan', 'screen': const TagihanScreen()},
       {'icon': Icons.qr_code, 'label': 'QRIS', 'screen': const QRISScreen()},
       {'icon': Icons.add_circle_outline, 'label': 'Top Up', 'screen': const TopUpScreen()},

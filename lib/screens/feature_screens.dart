@@ -27,10 +27,6 @@ class BRIVAScreen extends FeatureScreen {
   const BRIVAScreen({super.key}) : super(title: 'BRIVA');
 }
 
-class PulsaDataScreen extends FeatureScreen {
-  const PulsaDataScreen({super.key}) : super(title: 'Pulsa/Data');
-}
-
 class TagihanScreen extends FeatureScreen {
   const TagihanScreen({super.key}) : super(title: 'Tagihan');
 }
