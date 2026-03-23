@@ -23,10 +23,6 @@ class FeatureScreen extends StatelessWidget {
 }
 
 // Named exports for easier access
-class TransferScreen extends FeatureScreen {
-  const TransferScreen({super.key}) : super(title: 'Transfer');
-}
-
 class BRIVAScreen extends FeatureScreen {
   const BRIVAScreen({super.key}) : super(title: 'BRIVA');
 }
