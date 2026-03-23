@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'success_screen.dart';
 
 class ConfirmTransferScreen extends StatelessWidget {
   final String bankType;
@@ -113,10 +114,17 @@ class ConfirmTransferScreen extends StatelessWidget {
           height: 50,
           child: ElevatedButton(
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Transfer Berhasil!'), backgroundColor: Colors.green),
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SuccessScreen(
+                    bankType: bankType,
+                    accountNumber: accountNumber,
+                    amount: amount,
+                    notes: notes,
+                  ),
+                ),
               );
-              Navigator.of(context).popUntil((route) => route.isFirst);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF00529C),
