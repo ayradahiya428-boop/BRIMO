@@ -30,22 +30,47 @@ class _PulsaScreenState extends State<PulsaScreen> {
         backgroundColor: const Color(0xFF00529C),
         foregroundColor: Colors.white,
         elevation: 0,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildPhoneInput(),
-            const SizedBox(height: 24),
-            const Text(
-              'Pilih Nominal',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            // Ramadan Slim Header
+            Container(
+              height: 60,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Color(0xFF00529C),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
+              ),
+              child: const Center(
+                child: Text(
+                  'Koneksi Tanpa Batas di Hari Fitri',
+                  style: TextStyle(color: Colors.white70, fontSize: 12, fontStyle: FontStyle.italic),
+                ),
+              ),
             ),
-            const SizedBox(height: 16),
-            _buildNominalGrid(),
-            const SizedBox(height: 40),
-            _buildBuyButton(),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildPhoneInput(),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Pilih Nominal',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF00529C)),
+                  ),
+                  const SizedBox(height: 16),
+                  _buildNominalGrid(),
+                  const SizedBox(height: 40),
+                  _buildBuyButton(),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -53,28 +78,34 @@ class _PulsaScreenState extends State<PulsaScreen> {
   }
 
   Widget _buildPhoneInput() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Nomor Handphone', style: TextStyle(color: Colors.grey, fontSize: 13)),
-          TextField(
-            controller: _phoneController,
-            keyboardType: TextInputType.phone,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            decoration: const InputDecoration(
-              hintText: 'Contoh: 0812XXXXXXXX',
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(vertical: 8),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(left: 4, bottom: 8),
+          child: Text('Nomor Handphone', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black54)),
+        ),
+        TextField(
+          controller: _phoneController,
+          keyboardType: TextInputType.phone,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          decoration: InputDecoration(
+            hintText: 'Contoh: 0812XXXXXXXX',
+            prefixIcon: const Icon(Icons.phone_android_outlined, color: Color(0xFF00529C)),
+            filled: true,
+            fillColor: Colors.white,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: Colors.grey[300]!),
             ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(color: Color(0xFF00529C), width: 1.5),
+            ),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -86,7 +117,7 @@ class _PulsaScreenState extends State<PulsaScreen> {
         crossAxisCount: 2,
         mainAxisSpacing: 12,
         crossAxisSpacing: 12,
-        childAspectRatio: 2,
+        childAspectRatio: 1.8,
       ),
       itemCount: _nominals.length,
       itemBuilder: (context, index) {
@@ -100,11 +131,18 @@ class _PulsaScreenState extends State<PulsaScreen> {
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: isSelected ? const Color(0xFF00529C) : Colors.transparent,
-                width: 2,
+                color: isSelected ? const Color(0xFF00529C) : Colors.grey[200]!,
+                width: isSelected ? 2 : 1,
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: isSelected ? Colors.blue.withOpacity(0.05) : Colors.black.withOpacity(0.02),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -112,14 +150,15 @@ class _PulsaScreenState extends State<PulsaScreen> {
                 Text(
                   _nominals[index]['label'],
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: isSelected ? const Color(0xFF00529C) : Colors.black87,
                   ),
                 ),
+                const SizedBox(height: 4),
                 Text(
                   'Harga: Rp ${_nominals[index]['price']}',
-                  style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                  style: TextStyle(fontSize: 12, color: Colors.grey[600], fontWeight: FontWeight.w500),
                 ),
               ],
             ),
@@ -132,7 +171,7 @@ class _PulsaScreenState extends State<PulsaScreen> {
   Widget _buildBuyButton() {
     return SizedBox(
       width: double.infinity,
-      height: 50,
+      height: 55,
       child: ElevatedButton(
         onPressed: _selectedNominalIndex == null ? null : () {
           Navigator.push(
@@ -147,11 +186,12 @@ class _PulsaScreenState extends State<PulsaScreen> {
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF00529C),
+          backgroundColor: Colors.orange[800],
           disabledBackgroundColor: Colors.grey[300],
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          elevation: 2,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
-        child: const Text('Beli', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+        child: const Text('Beli Sekarang', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
       ),
     );
   }

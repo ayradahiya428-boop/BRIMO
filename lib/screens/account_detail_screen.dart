@@ -35,7 +35,7 @@ class AccountDetailScreen extends StatelessWidget {
           const Text('Saldo Tersedia', style: TextStyle(color: Colors.grey)),
           const SizedBox(height: 8),
           const Text(
-            'Rp 969.000.000',
+            'Rp 972.000.000.00',
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF00529C)),
           ),
           const SizedBox(height: 16),
