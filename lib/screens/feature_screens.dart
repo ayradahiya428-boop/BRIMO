@@ -27,10 +27,6 @@ class BRIVAScreen extends FeatureScreen {
   const BRIVAScreen({super.key}) : super(title: 'BRIVA');
 }
 
-class EWalletScreen extends FeatureScreen {
-  const EWalletScreen({super.key}) : super(title: 'E-Wallet');
-}
-
 class PulsaDataScreen extends FeatureScreen {
   const PulsaDataScreen({super.key}) : super(title: 'Pulsa/Data');
 }

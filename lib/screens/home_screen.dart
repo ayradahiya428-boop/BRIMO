@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'feature_screens.dart';
 import 'transfer_screen.dart';
+import 'ewallet_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -117,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       Text(
-                        _isBalanceVisible ? 'Rp 5.250.000' : 'Rp ••••••••',
+                        _isBalanceVisible ? 'Rp 969.000.000' : 'Rp ••••••••',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24,

@@ -17,108 +17,194 @@ class SuccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF4F7FA),
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 60),
-                    const Icon(
-                      Icons.check_circle,
-                      color: Colors.green,
-                      size: 100,
-                    ),
+                    _buildStatusHeader(),
+                    const SizedBox(height: 32),
+                    _buildReceiptCard(),
                     const SizedBox(height: 24),
-                    const Text(
-                      'Transaksi Berhasil!',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF00529C),
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                    _buildDetailBox(),
+                    _buildShareButton(),
                   ],
                 ),
               ),
             ),
-            _buildBottomButton(context),
+            _buildActionButtons(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDetailBox() {
+  Widget _buildStatusHeader() {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: const BoxDecoration(
+            color: Colors.green,
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(Icons.check, color: Colors.white, size: 48),
+        ),
+        const SizedBox(height: 16),
+        const Text(
+          'Transaksi Berhasil!',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF00529C),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          DateTime.now().toString().substring(0, 16),
+          style: TextStyle(color: Colors.grey[600], fontSize: 14),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildReceiptCard() {
     return Container(
-      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: Colors.grey[200]!),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: Column(
         children: [
-          _buildRow('Bank Tujuan', bankType == 'BRI' ? 'BRI' : 'Bank Lain'),
-          const Divider(height: 24),
-          _buildRow('Nomor Rekening', accountNumber),
-          const Divider(height: 24),
-          _buildRow('Nama Penerima', 'BRImo User Receiver'),
-          const Divider(height: 24),
-          _buildRow('Nominal', 'Rp $amount', valueColor: const Color(0xFF00529C), isBold: true),
-          const Divider(height: 24),
-          _buildRow('Catatan', notes.isEmpty ? '-' : notes),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                const Text(
+                  'Total Transfer',
+                  style: TextStyle(color: Colors.grey, fontSize: 14),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Rp $amount',
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF00529C),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: 1, indent: 20, endIndent: 20),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                _buildReceiptRow('Bank Tujuan', bankType == 'BRI' ? 'BRI' : 'Bank Lain'),
+                const SizedBox(height: 16),
+                _buildReceiptRow('Nomor Rekening', accountNumber),
+                const SizedBox(height: 16),
+                _buildReceiptRow('Nama Penerima', 'BRImo User Receiver'),
+                const SizedBox(height: 16),
+                _buildReceiptRow('Catatan', notes.isEmpty ? '-' : notes),
+                const SizedBox(height: 16),
+                _buildReceiptRow('ID Transaksi', 'TRX${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}'),
+              ],
+            ),
+          ),
+          _buildDashedLine(),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            child: Text(
+              'Simpan resi ini sebagai bukti transaksi yang sah.',
+              style: TextStyle(color: Colors.grey, fontSize: 12, fontStyle: FontStyle.italic),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildRow(String label, String value, {Color? valueColor, bool isBold = false}) {
+  Widget _buildReceiptRow(String label, String value) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(color: Colors.grey, fontSize: 14),
-        ),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: isBold ? FontWeight.bold : FontWeight.w500,
-            color: valueColor ?? Colors.black87,
+        Text(label, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Text(
+            value,
+            textAlign: TextAlign.end,
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildBottomButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: SizedBox(
-        width: double.infinity,
-        height: 50,
-        child: ElevatedButton(
-          onPressed: () {
-            // Kembali ke Home Dashboard
-            Navigator.of(context).popUntil((route) => route.isFirst);
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF00529C),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+  Widget _buildDashedLine() {
+    return Row(
+      children: List.generate(
+        30,
+        (index) => Expanded(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 2),
+            height: 1,
+            color: Colors.grey[300],
           ),
-          child: const Text(
-            'Selesai',
-            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildShareButton() {
+    return TextButton.icon(
+      onPressed: () {},
+      icon: const Icon(Icons.share, size: 20),
+      label: const Text('Bagikan Resi'),
+      style: TextButton.styleFrom(
+        foregroundColor: const Color(0xFF00529C),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      ),
+    );
+  }
+
+  Widget _buildActionButtons(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0, -2))],
+      ),
+      child: SafeArea(
+        child: SizedBox(
+          width: double.infinity,
+          height: 50,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF00529C),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              elevation: 0,
+            ),
+            child: const Text(
+              'Kembali ke Beranda',
+              style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+            ),
           ),
         ),
       ),
