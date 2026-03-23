@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'feature_screens.dart';
 import 'transfer_screen.dart';
 import 'ewallet_screen.dart';
 import 'pulsa_screen.dart';
+import 'briva_screen.dart';
+import 'tagihan_screen.dart';
+import 'qr_screen.dart';
+import 'topup_screen.dart';
+import 'more_menu_screen.dart';
+import 'account_detail_screen.dart';
+import 'promo_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,7 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeader(),
-              _buildAccountCard(),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AccountDetailScreen()));
+                },
+                child: _buildAccountCard(),
+              ),
               _buildFeatureGrid(),
               _buildPromoBanner(),
               _buildQuickAccess(),
@@ -59,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     'BRImo User',
                     style: TextStyle(
-                      color: Colors.blue[900],
+                      color: Color(0xFF00529C),
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -129,8 +140,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       IconButton(
                         icon: Icon(
                           _isBalanceVisible
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined,
+                               ? Icons.visibility_off_outlined
+                               : Icons.visibility_outlined,
                           color: Colors.white70,
                           size: 20,
                         ),
@@ -145,7 +156,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AccountDetailScreen()));
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white24,
                   foregroundColor: Colors.white,
@@ -170,9 +183,9 @@ class _HomeScreenState extends State<HomeScreen> {
       {'icon': Icons.account_balance_wallet, 'label': 'E-Wallet', 'screen': const EWalletScreen()},
       {'icon': Icons.phone_android, 'label': 'Pulsa/Data', 'screen': const PulsaScreen()},
       {'icon': Icons.description, 'label': 'Tagihan', 'screen': const TagihanScreen()},
-      {'icon': Icons.qr_code, 'label': 'QRIS', 'screen': const QRISScreen()},
+      {'icon': Icons.qr_code, 'label': 'QRIS', 'screen': const QRScreen()},
       {'icon': Icons.add_circle_outline, 'label': 'Top Up', 'screen': const TopUpScreen()},
-      {'icon': Icons.grid_view, 'label': 'Lainnya', 'screen': const LainnyaScreen()},
+      {'icon': Icons.grid_view, 'label': 'Lainnya', 'screen': const MoreMenuScreen()},
     ];
 
     return Padding(
@@ -231,6 +244,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildPromoBanner() {
+    final List<Map<String, dynamic>> promos = [
+      {'title': 'Cashback 50%', 'desc': 'Bayar Pakai QRIS di Merchant Pilihan', 'color': Colors.orange},
+      {'title': 'Bebas Admin', 'desc': 'Transfer ke Bank Lain di Hari Jumat', 'color': Colors.blue},
+      {'title': 'Voucher Game', 'desc': 'Diskon 20% Top Up Game Favoritmu', 'color': Colors.purple},
+    ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -247,24 +266,39 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            itemCount: 3,
+            itemCount: promos.length,
             itemBuilder: (context, index) {
-              return Container(
-                width: 300,
-                margin: const EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  gradient: LinearGradient(
-                    colors: [
-                      const Color(0xFF00529C),
-                      Colors.blue[400]!,
-                    ],
+              final promo = promos[index];
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PromoDetailScreen(promo: promo)),
+                  );
+                },
+                child: Container(
+                  width: 300,
+                  margin: const EdgeInsets.only(right: 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        promo['color'],
+                        promo['color'].withOpacity(0.7),
+                      ],
+                    ),
                   ),
-                ),
-                child: Center(
-                  child: Text(
-                    'Promo ${index + 1}',
-                    style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        promo['title'],
+                        style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
                 ),
               );
